@@ -70,18 +70,19 @@ struct MainView: View {
                                 }
                             }
                         }
-                    }.frame(width: nil, height: geometry.size.height / 10, alignment: .center).border(Color.black)
+                    }.frame(width: nil, height: geometry.size.height / 7, alignment: .center).border(Color.black)
                     VStack {
                         HStack {
                             Spacer()
                             VStack {
                                 Text("진행중인 타이머").bold()
-                                if Result().count > 0 {
-                                    var title = Result()[selectIndex]
-                                    var hours = title.hours * 60
-                                    var minute = hours + title.minutes * 60
-                                    var second = minute * 60
-                                    Text("\(second)")
+                                var title: String = Result()[selectIndex].title
+                                var hours: Int = Result()[selectIndex].hours
+                                var minute: Int = Result()[selectIndex].minutes
+                                var second: Int = 0
+                                Text("\(hours)시간 \(minute)분")
+                                NavigationLink(destination: TimerStartView(title: title, hours: hours, minute: minute, second: second)) {
+                                    Text("start").font(.system(size: 40)).bold().foregroundColor(.black)
                                 }
 //                                Text("\(currentDate)").onReceive(timer) {
 //                                    self.currentDate = $0
@@ -96,11 +97,6 @@ struct MainView: View {
                             }
                             Spacer()
                         }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        Button(action: {
-                            
-                        }, label: {
-                            Text("Start")
-                        }).foregroundColor(.black)
                     }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
                     VStack {
                         HStack {
@@ -116,7 +112,7 @@ struct MainView: View {
                             }
                             Spacer()
                         }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    }.frame(width: nil, height: geometry.size.height / 3, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
+                    }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
                     VStack {
                         HStack {
                             Spacer()
@@ -159,35 +155,43 @@ struct MainView: View {
     }
 }
 
-func dataCount() -> Int {
-    let realm = try! Realm()
-    let results = realm.objects(Todo.self)
-    return results.count
-}
-
-func titleData() -> [String] {
-    var titleList: [String] = []
-    let realm = try! Realm()
-    let results = realm.objects(Todo.self)
-    for result in results {
-        titleList.append(result.title)
-    }
-    return titleList
-}
-
-func Result() -> [Todo] {
-    let realm = try! Realm()
-    let results = realm.objects(Todo.self)
-    var data: [Todo] = []
-    for result in results {
-        data.append(result)
-    }
-    return data
-}
-
 struct CameraView: View {
     var body: some View {
         Text("Camera")
+    }
+}
+
+struct TimerStartView: View {
+    @State var title: String
+    @State var hours: Int
+    @State var minute: Int
+    @State var second: Int
+    var complet = false
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    var body: some View {
+        Text("\(title)\n\(hours)시간 \(minute)분")
+        if (dataSelect(title: title).complet == true) {
+            Text("완료한 과목입니다.")
+        } else {
+            Text("\(hours):\(minute):\(second)").onReceive(timer) { _ in
+                if hours == 0 && minute == 0 && second == 0 {
+                    self.timer.upstream.connect().cancel()
+                    dataUpdate(title: title)
+                } else {
+                    if minute == 0 && second == 0 {
+                        hours -= 1
+                        minute = 59
+                        second = 60
+                    }
+                    if second > 0 {
+                        second -= 1
+                    } else if second == 0 {
+                        minute -= 1
+                        second = 60
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -273,6 +277,31 @@ class dbData: ObservableObject {
         }
         return data
     }
+}
+
+func Result() -> [Todo] {
+    let realm = try! Realm()
+    let results = realm.objects(Todo.self)
+    var data: [Todo] = []
+    for result in results {
+        data.append(result)
+    }
+    return data
+}
+
+func dataUpdate(title: String) {
+    let realm = try! Realm()
+    if let result = realm.objects(Todo.self).filter(NSPredicate(format: "title = %@", title ?? "No Rapper")).first {
+        try! realm.write() {
+            result.complet = true
+        }
+    }
+}
+
+func dataSelect(title: String) -> Todo {
+    let realm = try! Realm()
+    let result = realm.objects(Todo.self).filter(NSPredicate(format: "title = %@", title ?? "No Rapper")).first
+    return result!
 }
 
 struct ContentView_Previews: PreviewProvider {

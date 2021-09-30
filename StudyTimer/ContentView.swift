@@ -70,19 +70,17 @@ struct MainView: View {
                                 }
                             }
                         }
-                    }.frame(width: nil, height: geometry.size.height / 7, alignment: .center).border(Color.black)
+                    }.frame(width: nil, height: geometry.size.height / 7, alignment: .center)
                     VStack {
                         HStack {
                             Spacer()
                             VStack {
-                                Text("진행중인 타이머").bold()
-                                var title: String = Result()[selectIndex].title
-                                var hours: Int = Result()[selectIndex].hours
-                                var minute: Int = Result()[selectIndex].minutes
-                                var second: Int = 0
-                                Text("\(hours)시간 \(minute)분")
-                                NavigationLink(destination: TimerStartView(title: title, hours: hours, minute: minute, second: second)) {
-                                    Text("start").font(.system(size: 40)).bold().foregroundColor(.black)
+                                Text("현재 공부중인 과목").bold()
+                                if Result().count > 0 {
+                                    Text(Result()[selectIndex].title)
+                                    let hours: Int = Result()[selectIndex].hours
+                                    let minute: Int = Result()[selectIndex].minutes
+                                    Text("\(hours)시간 \(minute)분")
                                 }
 //                                Text("\(currentDate)").onReceive(timer) {
 //                                    self.currentDate = $0
@@ -90,9 +88,14 @@ struct MainView: View {
                             }
                             Spacer()
                             VStack {
-                                Text("현재 공부중인 과목").bold()
                                 if Result().count > 0 {
-                                    Text(Result()[selectIndex].title)
+                                    let title: String = Result()[selectIndex].title
+                                    let hours: Int = Result()[selectIndex].hours
+                                    let minute: Int = Result()[selectIndex].minutes
+                                    let second: Int = 0
+                                    NavigationLink(destination: TimerStartView(title: title, hours: hours, minute: minute, second: second)) {
+                                        Text("start").font(.system(size: 40)).bold().foregroundColor(.black)
+                                    }
                                 }
                             }
                             Spacer()
@@ -181,13 +184,13 @@ struct TimerStartView: View {
                     if minute == 0 && second == 0 {
                         hours -= 1
                         minute = 59
-                        second = 60
+                        second = 59
                     }
                     if second > 0 {
                         second -= 1
                     } else if second == 0 {
                         minute -= 1
-                        second = 60
+                        second = 59
                     }
                 }
             }
@@ -239,7 +242,11 @@ struct AddView: View {
                                 todo.hours = Int(hours)
                                 todo.minutes = minutes
                                 todo.complet = false
+                                let formatter = DateFormatter()
+                                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                                todo.date = formatter.string(from: Date())
                                 try? realm.write {
+                                    print(todo)
                                     realm.add(todo)
                                 }
                                 viewModel.data.append(todo)
@@ -258,10 +265,11 @@ struct AddView: View {
 }
 
 class Todo: Object {
-    @objc dynamic var title = ""
-    @objc dynamic var hours = 0
-    @objc dynamic var minutes = 0
-    @objc dynamic var complet = false
+    dynamic var title = ""
+    dynamic var hours = 0
+    dynamic var minutes = 0
+    dynamic var complet = false
+    dynamic var date = ""
     override static func primaryKey() -> String? {
         return "title"
     }

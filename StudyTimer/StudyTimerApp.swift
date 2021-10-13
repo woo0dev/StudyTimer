@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 @main
-struct StudyTimerApp: App {
-    var body: some Scene {
+struct StudyTimerApp: App {var body: some Scene {
         WindowGroup {
             ContentView()
         }

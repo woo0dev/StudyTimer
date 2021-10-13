@@ -34,6 +34,8 @@ struct InfoView: View {
 struct MainView: View {
     @ObservedObject var viewModel: dbData
     @State var selectIndex: Int = 0
+    @State var weekRate: Double = 0.0
+    @State var dayRate: Int = 1
     @State var currentDate = Date()
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var body: some View {
@@ -105,13 +107,23 @@ struct MainView: View {
                         HStack {
                             Spacer()
                             VStack {
-                                Text("시간별 목표 달성률").bold()
-                                Text("45%").font(.system(size: 50))
+                                Text("일별 목표 달성률").bold()
+                                Text("\(getDateRate(), specifier : "%.1f")%")
+//                                ForEach(0..<Result().count) { i in
+//                                    if Result()[i].complet {
+//                                        Text("\(dayRate)")
+//                                    }else {
+//                                        Text("F")
+//                                    }
+//                                }
+                                //Text("\(rate().getDateRate())").font(.system(size: 50))
+                                //Text("\(rate().getDateRate(), specifier : "%.1f")").font(.system(size: 50))
                             }
                             Spacer()
                             VStack {
-                                Text("일별 달성률").bold()
-                                Text("75%").font(.system(size: 50))
+                                Text("주별 목표 달성률").bold()
+                                //Text("\(getWeekRate(), specifier : "%.1f")%")
+                                //Text("\(rate().getWeekRate())").font(.system(size: 50))
                             }
                             Spacer()
                         }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -243,7 +255,7 @@ struct AddView: View {
                                 todo.minutes = minutes
                                 todo.complet = false
                                 let formatter = DateFormatter()
-                                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                                formatter.dateFormat = "yyyy-MM-dd"
                                 todo.date = formatter.string(from: Date())
                                 try? realm.write {
                                     print(todo)
@@ -264,12 +276,62 @@ struct AddView: View {
     }
 }
 
+class rate: Object {
+//    func getDateRate() -> Int {
+//        @State var success = 0
+//        ForEach(0..<Result().count) { i in
+//            if Result()[i].complet {
+//                success += 1
+//            }
+//        }
+//        return success
+//    }
+//    func getWeekRate() -> Int {
+//        @State var success = 0
+//        ForEach(0..<Result().count) { i in
+//            if Result()[i].complet {
+//                success += 1
+//            }
+//        }
+//        return success
+//    }
+    
+}
+
+func getDateRate() -> Double {
+    var dayRate = 0
+    for i in 0..<Result().count {
+        if Result()[i].complet {
+            dayRate += 1
+        } else {
+            dayRate += 1
+        }
+        print(Result()[i])
+    }
+    let rate = Double(dayRate) / (Double(Result().count)*2) * 100
+    return rate
+}
+
+//func getWeekRate() -> Double {
+//    var weekRate = 0
+//    var cnt = 0
+//    let date = Date(timeIntervalSinceNow:-604800)
+//    for i in 0..<Result().count {
+//        if Result()[i].date > date {
+//            cnt += 1
+//        }
+//    }
+//
+//    let rate = 0.0
+//    return rate
+//}
+
 class Todo: Object {
-    dynamic var title = ""
-    dynamic var hours = 0
-    dynamic var minutes = 0
-    dynamic var complet = false
-    dynamic var date = ""
+    @objc dynamic var title = ""
+    @objc dynamic var hours = 0
+    @objc dynamic var minutes = 0
+    @objc dynamic var complet = false
+    @objc dynamic var date = ""
     override static func primaryKey() -> String? {
         return "title"
     }
@@ -306,6 +368,15 @@ func dataUpdate(title: String) {
     }
 }
 
+func dataDelete(title: String) {
+    let realm = try! Realm()
+    if let result = realm.objects(Todo.self).filter(NSPredicate(format: "title = %@", title ?? "No Rapper")).first {
+        try! realm.write() {
+            realm.delete(result)
+        }
+    }
+}
+
 func dataSelect(title: String) -> Todo {
     let realm = try! Realm()
     let result = realm.objects(Todo.self).filter(NSPredicate(format: "title = %@", title ?? "No Rapper")).first
@@ -317,4 +388,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-

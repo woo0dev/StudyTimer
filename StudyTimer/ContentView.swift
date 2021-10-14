@@ -122,6 +122,7 @@ struct MainView: View {
                             Spacer()
                             VStack {
                                 Text("주별 목표 달성률").bold()
+                                Text("\(getWeekRate(), specifier: "%.1f")%")
                                 //Text("\(getWeekRate(), specifier : "%.1f")%")
                                 //Text("\(rate().getWeekRate())").font(.system(size: 50))
                             }
@@ -299,17 +300,63 @@ class rate: Object {
 }
 
 func getDateRate() -> Double {
-    var dayRate = 0
-    for i in 0..<Result().count {
-        if Result()[i].complet {
-            dayRate += 1
-        } else {
-            dayRate += 1
+    let realm = try! Realm()
+    let results = realm.objects(Todo.self)
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    let date = formatter.string(from: Date(timeIntervalSinceNow:-604800))
+    let date2 = formatter.date(from: date)
+    var result = 0.0
+    var first = 0
+    var second = 0
+    for res in results {
+        let date3 = formatter.date(from: res.date)
+        var useTime = Int(date3!.timeIntervalSince(date2!))
+        print(useTime)
+        if 0 < useTime, useTime < 86400, res.complet{
+            first += 1
         }
-        print(Result()[i])
+        if 0 < useTime, useTime < 86400 {
+            second += 1
+        }
     }
-    let rate = Double(dayRate) / (Double(Result().count)*2) * 100
-    return rate
+    result = Double(first) / Double(second) * 100
+    
+    if result.isNaN{
+        result = 0.0
+    }
+    
+    return result
+}
+
+func getWeekRate() -> Double {
+    let realm = try! Realm()
+    let results = realm.objects(Todo.self)
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    let date = formatter.string(from: Date(timeIntervalSinceNow:-604800))
+    let date2 = formatter.date(from: date)
+    var result = 0.0
+    var first = 0
+    var second = 0
+    for res in results {
+        let date3 = formatter.date(from: res.date)
+        var useTime = Int(date3!.timeIntervalSince(date2!))
+        print(useTime)
+        if 0 < useTime, useTime < 604800, res.complet{
+            first += 1
+        }
+        if 0 < useTime, useTime < 604800 {
+            second += 1
+        }
+    }
+    result = Double(first) / Double(second) * 100
+    
+    if result.isNaN{
+        result = 0.0
+    }
+    
+    return result
 }
 
 //func getWeekRate() -> Double {

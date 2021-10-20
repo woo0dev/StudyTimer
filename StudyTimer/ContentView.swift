@@ -84,9 +84,6 @@ struct MainView: View {
                                     let minute: Int = Result()[selectIndex].minutes
                                     Text("\(hours)시간 \(minute)분")
                                 }
-//                                Text("\(currentDate)").onReceive(timer) {
-//                                    self.currentDate = $0
-//                                }
                             }
                             Spacer()
                             VStack {
@@ -109,22 +106,11 @@ struct MainView: View {
                             VStack {
                                 Text("일별 목표 달성률").bold()
                                 Text("\(getDateRate(), specifier : "%.1f")%")
-//                                ForEach(0..<Result().count) { i in
-//                                    if Result()[i].complet {
-//                                        Text("\(dayRate)")
-//                                    }else {
-//                                        Text("F")
-//                                    }
-//                                }
-                                //Text("\(rate().getDateRate())").font(.system(size: 50))
-                                //Text("\(rate().getDateRate(), specifier : "%.1f")").font(.system(size: 50))
                             }
                             Spacer()
                             VStack {
                                 Text("주별 목표 달성률").bold()
                                 Text("\(getWeekRate(), specifier: "%.1f")%")
-                                //Text("\(getWeekRate(), specifier : "%.1f")%")
-                                //Text("\(rate().getWeekRate())").font(.system(size: 50))
                             }
                             Spacer()
                         }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -351,7 +337,6 @@ func getWeekRate() -> Double {
     for res in results {
         let date3 = formatter.date(from: res.date)
         var useTime = Int(date3!.timeIntervalSince(date2!))
-        print(useTime)
         if 0 < useTime, useTime < 604800, res.complet{
             first += 1
         }
@@ -367,20 +352,6 @@ func getWeekRate() -> Double {
     
     return result
 }
-
-//func getWeekRate() -> Double {
-//    var weekRate = 0
-//    var cnt = 0
-//    let date = Date(timeIntervalSinceNow:-604800)
-//    for i in 0..<Result().count {
-//        if Result()[i].date > date {
-//            cnt += 1
-//        }
-//    }
-//
-//    let rate = 0.0
-//    return rate
-//}
 
 class Todo: Object {
     @objc dynamic var title = ""

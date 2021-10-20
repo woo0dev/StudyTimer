@@ -41,119 +41,120 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
-                VStack {
+                ScrollView {
                     VStack {
-                        HStack {
-                            VStack {
-                                Text("  메인화면").bold()
-                            }.frame(width: geometry.size.width / 3.3, height: nil, alignment: .leading)
-                            Spacer()
-                            VStack {
-                                Text("앱이름").bold()
-                            }.frame(width: geometry.size.width / 3.3, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            Spacer()
-                            VStack {
-                                NavigationLink(
-                                    destination: AddView(viewModel: viewModel)) {
-                                        Text("+ ").font(.system(size: 40)).bold().foregroundColor(.black)
-                                    }
-                            }.frame(width: geometry.size.width / 3.3, height: nil, alignment: .trailing)
-                        }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    }.frame(width: nil, height: geometry.size.height / 18, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
-                    VStack{
-                        Form {
-                            Section {
-                                if Result().count > 0 {
-                                    Picker(selection: $selectIndex, label: Text(Result()[selectIndex].title)){
-                                        ForEach(0..<Result().count) { i in
-                                            Text(Result()[i].title)
+                        VStack {
+                            HStack {
+                                VStack {
+                                    Text("  메인화면").bold()
+                                }.frame(width: geometry.size.width / 3.3, height: nil, alignment: .leading)
+                                Spacer()
+                                VStack {
+                                    Text("앱이름").bold()
+                                }.frame(width: geometry.size.width / 3.3, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                Spacer()
+                                VStack {
+                                    NavigationLink(
+                                        destination: AddView(viewModel: viewModel)) {
+                                            Text("+ ").font(.system(size: 40)).bold().foregroundColor(.black)
                                         }
-                                    }
-                                }
-                            }
-                        }
-                    }.frame(width: nil, height: geometry.size.height / 7, alignment: .center)
-                    VStack {
-                        HStack {
-                            Spacer()
-                            VStack {
-                                Text("현재 공부중인 과목").bold()
-                                if Result().count > 0 {
-                                    Text(Result()[selectIndex].title)
-                                    let hours: Int = Result()[selectIndex].hours
-                                    let minute: Int = Result()[selectIndex].minutes
-                                    Text("\(hours)시간 \(minute)분")
-                                }
-                            }
-                            Spacer()
-                            VStack {
-                                if Result().count > 0 {
-                                    let title: String = Result()[selectIndex].title
-                                    let hours: Int = Result()[selectIndex].hours
-                                    let minute: Int = Result()[selectIndex].minutes
-                                    let second: Int = 0
-                                    NavigationLink(destination: TimerStartView(title: title, hours: hours, minute: minute, second: second)) {
-                                        Text("start").font(.system(size: 40)).bold().foregroundColor(.black)
-                                    }
-                                }
-                            }
-                            Spacer()
-                        }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
-                    VStack {
-                        HStack {
-                            Spacer()
-                            VStack {
-                                Text("일별 목표 달성률").bold()
-                                Text("\(getDateRate(), specifier : "%.1f")%")
-                            }
-                            Spacer()
-                            VStack {
-                                Text("주별 목표 달성률").bold()
-                                Text("\(getWeekRate(), specifier: "%.1f")%")
-                            }
-                            Spacer()
-                        }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
-                    VStack {
-                        HStack {
-                            Spacer()
-                            VStack {
-                                Text("완료").bold()
-                                List {
-                                    ForEach(Result(), id: \.title) { row in
-                                        if row.complet == true {
-                                            NavigationLink(
-                                                destination: DetailView(data: row)) {
-                                                    Text("\(row.title)")
+                                }.frame(width: geometry.size.width / 3.3, height: nil, alignment: .trailing)
+                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        }.frame(width: nil, height: geometry.size.height / 18, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
+                        VStack{
+                            Form {
+                                Section {
+                                    if Result().count > 0 {
+                                        Picker(selection: $selectIndex, label: Text(Result()[selectIndex].title)){
+                                            ForEach(0..<Result().count) { i in
+                                                Text(Result()[i].title)
                                             }
                                         }
                                     }
                                 }
                             }
-                            VStack {
-                                Text("미완료").bold()
-                                List {
-                                    ForEach(Result(), id: \.title) { row in
-                                        if row.complet == false {
-                                            NavigationLink(
-                                                destination: DetailView(data: row)) {
-                                                    Text("\(row.title)")
+                        }.frame(width: nil, height: geometry.size.height / 7, alignment: .center)
+                        VStack {
+                            HStack {
+                                Spacer()
+                                VStack {
+                                    Text("현재 공부중인 과목").bold()
+                                    if Result().count > 0 {
+                                        Text(Result()[selectIndex].title)
+                                        let hours: Int = Result()[selectIndex].hours
+                                        let minute: Int = Result()[selectIndex].minutes
+                                        Text("\(hours)시간 \(minute)분")
+                                    }
+                                }
+                                Spacer()
+                                VStack {
+                                    if Result().count > 0 {
+                                        let title: String = Result()[selectIndex].title
+                                        let hours: Int = Result()[selectIndex].hours
+                                        let minute: Int = Result()[selectIndex].minutes
+                                        let second: Int = 0
+                                        NavigationLink(destination: TimerStartView(title: title, hours: hours, minute: minute, second: second)) {
+                                            Text("start").font(.system(size: 40)).bold().foregroundColor(.black)
+                                        }
+                                    }
+                                }
+                                Spacer()
+                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
+                        VStack {
+                            HStack {
+                                Spacer()
+                                VStack {
+                                    Text("일별 목표 달성률").bold()
+                                    Text("\(getDateRate(), specifier : "%.1f")%")
+                                }
+                                Spacer()
+                                VStack {
+                                    Text("주별 목표 달성률").bold()
+                                    Text("\(getWeekRate(), specifier: "%.1f")%")
+                                }
+                                Spacer()
+                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
+                        VStack {
+                            HStack {
+                                Spacer()
+                                VStack {
+                                    Text("완료").bold()
+                                    List {
+                                        ForEach(Result(), id: \.title) { row in
+                                            if row.complet == true {
+                                                NavigationLink(
+                                                    destination: DetailView(data: row)) {
+                                                        Text("\(row.title)")
+                                                }
                                             }
                                         }
                                     }
                                 }
-                                
-                            }
-                            Spacer()
-                        }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    }.frame(width: nil, height: geometry.size.height / 2.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
+                                VStack {
+                                    Text("미완료").bold()
+                                    List {
+                                        ForEach(Result(), id: \.title) { row in
+                                            if row.complet == false {
+                                                NavigationLink(
+                                                    destination: DetailView(data: row)) {
+                                                        Text("\(row.title)")
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                                Spacer()
+                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        }.frame(width: nil, height: geometry.size.height / 2.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).border(Color.black)
+                    }
                 }
+                .navigationTitle("")
+                .navigationBarHidden(true)
             }
-            .navigationTitle("")
-            .navigationBarHidden(true)
         }
-        
     }
 }
 

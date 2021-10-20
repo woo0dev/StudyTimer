@@ -138,8 +138,8 @@ struct MainView: View {
                                     ForEach(Result(), id: \.title) { row in
                                         if row.complet == true {
                                             NavigationLink(
-                                                destination: Text("Detail \(row.title))")) {
-                                                Text("\(Text(row.title))")
+                                                destination: DetailView(data: row)) {
+                                                    Text("\(row.title)")
                                             }
                                         }
                                     }
@@ -151,8 +151,8 @@ struct MainView: View {
                                     ForEach(Result(), id: \.title) { row in
                                         if row.complet == false {
                                             NavigationLink(
-                                                destination: Text("Detail \(row.title))")) {
-                                                Text("\(Text(row.title))")
+                                                destination: DetailView(data: row)) {
+                                                    Text("\(row.title)")
                                             }
                                         }
                                     }
@@ -274,6 +274,15 @@ struct AddView: View {
             .navigationTitle("")
             .navigationBarHidden(true)
         }
+    }
+}
+
+struct DetailView: View {
+    var data: Todo
+    var body: some View {
+        Text("목표 명: \(data.title)")
+        Text("목표 시간: \(data.hours)시간 \(data.minutes)분")
+        Text("날짜: \(data.date)")
     }
 }
 

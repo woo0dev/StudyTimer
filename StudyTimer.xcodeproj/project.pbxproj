@@ -14,6 +14,8 @@
 		E2A34851266F49D600807BDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2A34850266F49D600807BDE /* Preview Assets.xcassets */; };
 		E2ADEEAE2716D985006C0248 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = E2ADEEAD2716D985006C0248 /* Realm */; };
 		E2ADEEB02716D985006C0248 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E2ADEEAF2716D985006C0248 /* RealmSwift */; };
+		E2ADEEB82720300E006C0248 /* BMJUA_otf.otf in Resources */ = {isa = PBXBuildFile; fileRef = E2ADEEB72720300E006C0248 /* BMJUA_otf.otf */; };
+		E2ADEEBA27204149006C0248 /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2ADEEB927204149006C0248 /* CustomColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		E2A3484D266F49D600807BDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2A34850266F49D600807BDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E2A34852266F49D600807BDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2ADEEB72720300E006C0248 /* BMJUA_otf.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BMJUA_otf.otf; sourceTree = "<group>"; };
+		E2ADEEB927204149006C0248 /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,9 +78,11 @@
 			children = (
 				E2A34849266F49CB00807BDE /* StudyTimerApp.swift */,
 				E2A3484B266F49CB00807BDE /* ContentView.swift */,
+				E2ADEEB72720300E006C0248 /* BMJUA_otf.otf */,
 				E2A3484D266F49D600807BDE /* Assets.xcassets */,
 				E2A34852266F49D600807BDE /* Info.plist */,
 				E2A3484F266F49D600807BDE /* Preview Content */,
+				E2ADEEB927204149006C0248 /* CustomColor.swift */,
 			);
 			path = StudyTimer;
 			sourceTree = "<group>";
@@ -164,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2A34851266F49D600807BDE /* Preview Assets.xcassets in Resources */,
+				E2ADEEB82720300E006C0248 /* BMJUA_otf.otf in Resources */,
 				E2A3484E266F49D600807BDE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,6 +226,7 @@
 			files = (
 				E2A3484C266F49CB00807BDE /* ContentView.swift in Sources */,
 				E2A3484A266F49CB00807BDE /* StudyTimerApp.swift in Sources */,
+				E2ADEEBA27204149006C0248 /* CustomColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

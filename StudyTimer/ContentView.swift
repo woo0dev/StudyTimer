@@ -126,11 +126,14 @@ struct MainView: View {
                                             if row.complet == true {
                                                 NavigationLink(
                                                     destination: DetailView(data: row)) {
-                                                        Text("\(row.title)")
+                                                        VStack {
+                                                            Text("\(row.title)")
+                                                            Text("\(row.date)")
+                                                        }
                                                 }
                                             }
                                         }
-                                    }
+                                    }.listStyle(PlainListStyle())
                                 }
                                 VStack {
                                     Text("미완료").bold()
@@ -139,11 +142,14 @@ struct MainView: View {
                                             if row.complet == false {
                                                 NavigationLink(
                                                     destination: DetailView(data: row)) {
-                                                        Text("\(row.title)")
+                                                        VStack {
+                                                            Text("\(row.title)")
+                                                            Text("\(row.date)")
+                                                        }
                                                 }
                                             }
                                         }
-                                    }
+                                    }.listStyle(PlainListStyle())
                                     
                                 }
                                 Spacer()
@@ -246,7 +252,6 @@ struct AddView: View {
                                 formatter.dateFormat = "yyyy-MM-dd"
                                 todo.date = formatter.string(from: Date())
                                 try? realm.write {
-                                    print(todo)
                                     realm.add(todo)
                                 }
                                 viewModel.data.append(todo)
@@ -273,28 +278,6 @@ struct DetailView: View {
     }
 }
 
-class rate: Object {
-//    func getDateRate() -> Int {
-//        @State var success = 0
-//        ForEach(0..<Result().count) { i in
-//            if Result()[i].complet {
-//                success += 1
-//            }
-//        }
-//        return success
-//    }
-//    func getWeekRate() -> Int {
-//        @State var success = 0
-//        ForEach(0..<Result().count) { i in
-//            if Result()[i].complet {
-//                success += 1
-//            }
-//        }
-//        return success
-//    }
-    
-}
-
 func getDateRate() -> Double {
     let realm = try! Realm()
     let results = realm.objects(Todo.self)
@@ -308,7 +291,6 @@ func getDateRate() -> Double {
     for res in results {
         let date3 = formatter.date(from: res.date)
         var useTime = Int(date3!.timeIntervalSince(date2!))
-        print(useTime)
         if 0 < useTime, useTime < 86400, res.complet{
             first += 1
         }

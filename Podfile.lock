@@ -4,19 +4,31 @@ PODS:
   - Realm/Headers (10.7.1)
   - RealmSwift (10.7.1):
     - Realm (= 10.7.1)
+  - TensorFlowLiteC (2.6.0):
+    - TensorFlowLiteC/Core (= 2.6.0)
+  - TensorFlowLiteC/Core (2.6.0)
+  - TensorFlowLiteSwift (2.6.0):
+    - TensorFlowLiteSwift/Core (= 2.6.0)
+  - TensorFlowLiteSwift/Core (2.6.0):
+    - TensorFlowLiteC (= 2.6.0)
 
 DEPENDENCIES:
   - RealmSwift
+  - TensorFlowLiteSwift
 
 SPEC REPOS:
   trunk:
     - Realm
     - RealmSwift
+    - TensorFlowLiteC
+    - TensorFlowLiteSwift
 
 SPEC CHECKSUMS:
   Realm: 55bae3a2f42186360b54fd8783e884ae8656ab05
   RealmSwift: 0d9bb38ad2cb953fc61d6827be5611972a75ca31
+  TensorFlowLiteC: 869f93708210ed939fc40f40c772a120b7f964d1
+  TensorFlowLiteSwift: 78bc548132d2cae55643f3238359a24a6eb92b88
 
-PODFILE CHECKSUM: 10bcbaa1c99ced4e91264cdb3d5daaa0716f2b17
+PODFILE CHECKSUM: 74fd959fa525d071aec3833a7860702ef8246588
 
 COCOAPODS: 1.10.1

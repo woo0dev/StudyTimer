@@ -8,5 +8,6 @@ target 'StudyTimer' do
   # Pods for StudyTimer
 
   pod 'RealmSwift'
+  pod 'TensorFlowLiteSwift'
 
 end

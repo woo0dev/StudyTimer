@@ -47,7 +47,7 @@ struct MainView: View {
                             HStack {
                                 VStack {
                                     Text("메인화면").font(Font.custom("BMJUAOTF", size: 20)).bold().foregroundColor(.white)
-                                }.frame(width: geometry.size.width / 3.3, height: nil, alignment: .leading)
+                                }.frame(width: geometry.size.width / 3.3, height: nil, alignment: .leading).padding([.horizontal], 5)
                                 Spacer()
                                 VStack {
                                     Text("StudyTimer").font(Font.custom("BMJUAOTF", size: 20)).bold().foregroundColor(.white)
@@ -58,58 +58,58 @@ struct MainView: View {
                                         destination: AddView(viewModel: viewModel)) {
                                             Text("+").font(.system(size: 40)).font(Font.custom("BMJUAOTF", size: 20)).bold().foregroundColor(.white)
                                         }
-                                }.frame(width: geometry.size.width / 3.3, height: nil, alignment: .trailing)
-                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).background(CustomColor.customGreen)
+                                }.frame(width: geometry.size.width / 3.3, height: nil, alignment: .trailing).padding([.horizontal], 5)
+                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).background(CustomColor.customGreen).padding([.vertical], 5)
                         }.frame(width: nil, height: geometry.size.height / 18, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        VStack{
-                            Form {
-                                Section {
-                                    if Result().count > 0 {
-                                        Picker(selection: $selectIndex, label: Text("목표 선택하기 : ").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
-                                        ){
-                                            ForEach(0..<Result().count) { i in
-                                                Text(Result()[i].title).font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
-                                            }
-                                        }
-                                    }
-                                }
-                            }.onAppear {
-                                UITableView.appearance().backgroundColor = .white
-                            }
-                        }.frame(width: nil, height: geometry.size.height / 7, alignment: .center).overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(CustomColor.customGreen, lineWidth: 2)
-                        )
-                        VStack {
-                            HStack {
-                                Spacer()
-                                VStack {
-                                    Text("현재 공부중인 과목").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(.black)
-                                    if Result().count > 0 {
-                                        Text(Result()[selectIndex].title).font(Font.custom("BMJUAOTF", size: 26)).bold().foregroundColor(CustomColor.customGreen)
-                                        let hours: Int = Result()[selectIndex].hours
-                                        let minute: Int = Result()[selectIndex].minutes
-                                        Text("\(hours)시간 \(minute)분").font(Font.custom("BMJUAOTF", size: 22)).bold().foregroundColor(CustomColor.customGreen)
-                                    }
-                                }
-                                Spacer()
-                                VStack {
-                                    if Result().count > 0 {
-                                        let title: String = Result()[selectIndex].title
-                                        let hours: Int = Result()[selectIndex].hours
-                                        let minute: Int = Result()[selectIndex].minutes
-                                        let second: Int = 0
-                                        NavigationLink(destination: TimerStartView(title: title, hours: hours, minute: minute, second: second)) {
-                                            Text("START").font(Font.custom("BMJUAOTF", size: 40)).bold().foregroundColor(CustomColor.customGreen)
-                                        }
-                                    }
-                                }
-                                Spacer()
-                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(CustomColor.customGreen, lineWidth: 2)
-                        )
+//                        VStack{
+//                            Form {
+//                                Section {
+//                                    if Result().count > 0 {
+//                                        Picker(selection: $selectIndex, label: Text("목표 선택하기 : ").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
+//                                        ){
+//                                            ForEach(0..<Result().count) { i in
+//                                                Text(Result()[i].title).font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }.onAppear {
+//                                UITableView.appearance().backgroundColor = .white
+//                            }
+//                        }.frame(width: nil, height: geometry.size.height / 7, alignment: .center).overlay(
+//                            RoundedRectangle(cornerRadius: 20)
+//                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5).padding([.vertical], 5)
+//                        )
+//                        VStack {
+//                            HStack {
+//                                Spacer()
+//                                VStack {
+//                                    Text("현재 공부중인 과목").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(.black)
+//                                    if Result().count > 0 {
+//                                        Text(Result()[selectIndex].title).font(Font.custom("BMJUAOTF", size: 26)).bold().foregroundColor(CustomColor.customGreen)
+//                                        let hours: Int = Result()[selectIndex].hours
+//                                        let minute: Int = Result()[selectIndex].minutes
+//                                        Text("\(hours)시간 \(minute)분").font(Font.custom("BMJUAOTF", size: 22)).bold().foregroundColor(CustomColor.customGreen)
+//                                    }
+//                                }
+//                                Spacer()
+//                                VStack {
+//                                    if Result().count > 0 {
+//                                        let title: String = Result()[selectIndex].title
+//                                        let hours: Int = Result()[selectIndex].hours
+//                                        let minute: Int = Result()[selectIndex].minutes
+//                                        let second: Int = 0
+//                                        NavigationLink(destination: TimerStartView(title: title, hours: hours, minute: minute, second: second)) {
+//                                            Text("START").font(Font.custom("BMJUAOTF", size: 40)).bold().foregroundColor(CustomColor.customGreen)
+//                                        }
+//                                    }
+//                                }
+//                                Spacer()
+//                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                        }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+//                            RoundedRectangle(cornerRadius: 20)
+//                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5).padding([.vertical], 5)
+//                        )
                         VStack {
                             HStack {
                                 Spacer()
@@ -126,50 +126,49 @@ struct MainView: View {
                             }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(CustomColor.customGreen, lineWidth: 2)
+                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5).padding([.vertical], 5)
                         )
                         VStack {
                             Spacer()
-                            HStack {
-                                Spacer()
-                                VStack {
-                                    Text("완료").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(.black)
-                                    List {
-                                        ForEach(Result(), id: \.title) { row in
-                                            if row.complet == true {
-                                                NavigationLink(
-                                                    destination: DetailView(data: row)) {
-                                                        VStack {
-                                                            Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                            Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                        }
-                                                }
+                            //HStack {
+                            VStack {
+                                Text("미완료").bold().font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(.black).padding([.vertical], 5)
+                                List {
+                                    ForEach(Result(), id: \.title) { row in
+                                        if row.complet == false {
+                                            NavigationLink(
+                                                destination: DetailView(data: row)) {
+                                                    //VStack {
+                                                    Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    Text("\(row.hours)시간 \(row.minutes)분").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    //}.padding([.horizontal], 20)
                                             }
                                         }
-                                    }.listStyle(PlainListStyle())
-                                }
-                                VStack {
-                                    Text("미완료").bold().font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(.black)
-                                    List {
-                                        ForEach(Result(), id: \.title) { row in
-                                            if row.complet == false {
-                                                NavigationLink(
-                                                    destination: DetailView(data: row)) {
-                                                        VStack {
-                                                            Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                            Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                        }
-                                                }
+                                    }
+                                }.listStyle(PlainListStyle())
+                            }.padding([.horizontal], 5).padding([.vertical], 5)
+                            Spacer()
+                            VStack {
+                                Text("완료").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(.black).padding([.vertical], 5)
+                                List {
+                                    ForEach(Result(), id: \.title) { row in
+                                        if row.complet == true {
+                                            NavigationLink(
+                                                destination: DetailView(data: row)) {
+                                                    Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    Text("\(row.hours)시간 \(row.minutes)분").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
                                             }
                                         }
-                                    }.listStyle(PlainListStyle())
-                                    
-                                }
-                                Spacer()
-                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        }.frame(width: nil, height: geometry.size.height / 2.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                                    }
+                                }.listStyle(PlainListStyle())
+                            }.padding([.horizontal], 5).padding([.vertical], 5)
+                            Spacer()
+                            //}.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        }.frame(width: nil, height: geometry.size.height / 1.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(CustomColor.customGreen, lineWidth: 2)
+                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5).padding([.vertical], 5)
                         )
                     }
                 }
@@ -293,6 +292,13 @@ struct DetailView: View {
         Text("목표 명: \(data.title)").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
         Text("목표 시간: \(data.hours)시간 \(data.minutes)분").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
         Text("날짜: \(data.date)").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
+        VStack {
+            if Result().count > 0 {
+                NavigationLink(destination: TimerStartView(title: data.title, hours: data.hours, minute: data.minutes, second: 0)) {
+                    Text("START").font(Font.custom("BMJUAOTF", size: 40)).bold().foregroundColor(CustomColor.customGreen)
+                }
+            }
+        }
     }
 }
 
@@ -308,7 +314,7 @@ func getDateRate() -> Double {
     var second = 0
     for res in results {
         let date3 = formatter.date(from: res.date)
-        var useTime = Int(date3!.timeIntervalSince(date2!))
+        let useTime = Int(date3!.timeIntervalSince(date2!))
         if 0 < useTime, useTime < 86400, res.complet{
             first += 1
         }
@@ -337,7 +343,7 @@ func getWeekRate() -> Double {
     var second = 0
     for res in results {
         let date3 = formatter.date(from: res.date)
-        var useTime = Int(date3!.timeIntervalSince(date2!))
+        let useTime = Int(date3!.timeIntervalSince(date2!))
         if 0 < useTime, useTime < 604800, res.complet{
             first += 1
         }

@@ -124,9 +124,9 @@ struct MainView: View {
                                 }
                                 Spacer()
                             }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
+                        }.frame(width: nil, height: geometry.size.height / 4, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5).padding([.vertical], 5)
+                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5).padding([.vertical], 10)
                         )
                         VStack {
                             Spacer()
@@ -138,11 +138,15 @@ struct MainView: View {
                                         if row.complet == false {
                                             NavigationLink(
                                                 destination: DetailView(data: row)) {
-                                                    //VStack {
-                                                    Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                    Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                    Text("\(row.hours)시간 \(row.minutes)분").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                    //}.padding([.horizontal], 20)
+                                                    VStack {
+                                                        Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    }.frame(width: geometry.size.width / 4, height: nil)
+                                                    VStack {
+                                                        Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    }.frame(width: geometry.size.width / 4, height: nil)
+                                                    VStack {
+                                                        Text("\(row.hours)시간 \(row.minutes)분").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    }.frame(width: geometry.size.width / 4, height: nil)
                                             }
                                         }
                                     }
@@ -156,9 +160,15 @@ struct MainView: View {
                                         if row.complet == true {
                                             NavigationLink(
                                                 destination: DetailView(data: row)) {
-                                                    Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                    Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                    Text("\(row.hours)시간 \(row.minutes)분").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    VStack {
+                                                        Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    }.frame(width: geometry.size.width / 4, height: nil)
+                                                    VStack {
+                                                        Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    }.frame(width: geometry.size.width / 4, height: nil)
+                                                    VStack {
+                                                        Text("\(row.hours)시간 \(row.minutes)분").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
+                                                    }.frame(width: geometry.size.width / 4, height: nil)
                                             }
                                         }
                                     }
@@ -168,7 +178,7 @@ struct MainView: View {
                             //}.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         }.frame(width: nil, height: geometry.size.height / 1.5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5).padding([.vertical], 5)
+                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5)
                         )
                     }
                 }

@@ -272,7 +272,7 @@ func getDateRate() -> Double {
     let results = realm.objects(Todo.self)
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"
-    let date = formatter.string(from: Date(timeIntervalSinceNow:-604800))
+    let date = formatter.string(from: Date(timeIntervalSinceNow:-86400))
     let date2 = formatter.date(from: date)
     var result = 0.0
     var first = 0
@@ -280,10 +280,10 @@ func getDateRate() -> Double {
     for res in results {
         let date3 = formatter.date(from: res.date)
         let useTime = Int(date3!.timeIntervalSince(date2!))
-        if 0 < useTime, useTime < 86400, res.complet{
+        if 0 < useTime, useTime <= 86400, res.complet{
             first += 1
         }
-        if 0 < useTime, useTime < 86400 {
+        if 0 < useTime, useTime <= 86400 {
             second += 1
         }
     }
@@ -309,10 +309,10 @@ func getWeekRate() -> Double {
     for res in results {
         let date3 = formatter.date(from: res.date)
         let useTime = Int(date3!.timeIntervalSince(date2!))
-        if 0 < useTime, useTime < 604800, res.complet{
+        if 0 < useTime, useTime <= 604800, res.complet{
             first += 1
         }
-        if 0 < useTime, useTime < 604800 {
+        if 0 < useTime, useTime <= 604800 {
             second += 1
         }
     }

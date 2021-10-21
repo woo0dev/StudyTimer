@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import TensorFlowLite
 
 struct ContentView: View {
     @ObservedObject var viewModel = dbData()
@@ -61,55 +62,6 @@ struct MainView: View {
                                 }.frame(width: geometry.size.width / 3.3, height: nil, alignment: .trailing).padding([.horizontal], 5)
                             }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).background(CustomColor.customGreen).padding([.vertical], 5)
                         }.frame(width: nil, height: geometry.size.height / 18, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-//                        VStack{
-//                            Form {
-//                                Section {
-//                                    if Result().count > 0 {
-//                                        Picker(selection: $selectIndex, label: Text("목표 선택하기 : ").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
-//                                        ){
-//                                            ForEach(0..<Result().count) { i in
-//                                                Text(Result()[i].title).font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }.onAppear {
-//                                UITableView.appearance().backgroundColor = .white
-//                            }
-//                        }.frame(width: nil, height: geometry.size.height / 7, alignment: .center).overlay(
-//                            RoundedRectangle(cornerRadius: 20)
-//                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5).padding([.vertical], 5)
-//                        )
-//                        VStack {
-//                            HStack {
-//                                Spacer()
-//                                VStack {
-//                                    Text("현재 공부중인 과목").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(.black)
-//                                    if Result().count > 0 {
-//                                        Text(Result()[selectIndex].title).font(Font.custom("BMJUAOTF", size: 26)).bold().foregroundColor(CustomColor.customGreen)
-//                                        let hours: Int = Result()[selectIndex].hours
-//                                        let minute: Int = Result()[selectIndex].minutes
-//                                        Text("\(hours)시간 \(minute)분").font(Font.custom("BMJUAOTF", size: 22)).bold().foregroundColor(CustomColor.customGreen)
-//                                    }
-//                                }
-//                                Spacer()
-//                                VStack {
-//                                    if Result().count > 0 {
-//                                        let title: String = Result()[selectIndex].title
-//                                        let hours: Int = Result()[selectIndex].hours
-//                                        let minute: Int = Result()[selectIndex].minutes
-//                                        let second: Int = 0
-//                                        NavigationLink(destination: TimerStartView(title: title, hours: hours, minute: minute, second: second)) {
-//                                            Text("START").font(Font.custom("BMJUAOTF", size: 40)).bold().foregroundColor(CustomColor.customGreen)
-//                                        }
-//                                    }
-//                                }
-//                                Spacer()
-//                            }.frame(width: nil, height: nil, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-//                        }.frame(width: nil, height: geometry.size.height / 5, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/).overlay(
-//                            RoundedRectangle(cornerRadius: 20)
-//                                .stroke(CustomColor.customGreen, lineWidth: 2).padding([.horizontal], 5).padding([.vertical], 5)
-//                        )
                         VStack {
                             HStack {
                                 Spacer()
@@ -139,14 +91,14 @@ struct MainView: View {
                                             NavigationLink(
                                                 destination: DetailView(data: row)) {
                                                     VStack {
-                                                        Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                    }.frame(width: geometry.size.width / 4, height: nil)
+                                                        Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 22)).bold().foregroundColor(CustomColor.customGreen)
+                                                    }.frame(width: geometry.size.width / 3, height: nil)
                                                     VStack {
                                                         Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
                                                     }.frame(width: geometry.size.width / 4, height: nil)
                                                     VStack {
                                                         Text("\(row.hours)시간 \(row.minutes)분").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                    }.frame(width: geometry.size.width / 4, height: nil)
+                                                    }.frame(width: geometry.size.width / 5, height: nil)
                                             }
                                         }
                                     }
@@ -161,14 +113,14 @@ struct MainView: View {
                                             NavigationLink(
                                                 destination: DetailView(data: row)) {
                                                     VStack {
-                                                        Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                    }.frame(width: geometry.size.width / 4, height: nil)
+                                                        Text("\(row.title)").font(Font.custom("BMJUAOTF", size: 22)).bold().foregroundColor(CustomColor.customGreen)
+                                                    }.frame(width: geometry.size.width / 3, height: nil)
                                                     VStack {
                                                         Text("\(row.date)").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
                                                     }.frame(width: geometry.size.width / 4, height: nil)
                                                     VStack {
                                                         Text("\(row.hours)시간 \(row.minutes)분").font(Font.custom("BMJUAOTF", size: 16)).bold().foregroundColor(CustomColor.customGreen)
-                                                    }.frame(width: geometry.size.width / 4, height: nil)
+                                                    }.frame(width: geometry.size.width / 5, height: nil)
                                             }
                                         }
                                     }
@@ -306,6 +258,9 @@ struct DetailView: View {
             if Result().count > 0 {
                 NavigationLink(destination: TimerStartView(title: data.title, hours: data.hours, minute: data.minutes, second: 0)) {
                     Text("START").font(Font.custom("BMJUAOTF", size: 40)).bold().foregroundColor(CustomColor.customGreen)
+                }
+                NavigationLink(destination: CameraView()) {
+                    Text("Camera").font(Font.custom("BMJUAOTF", size: 40)).bold().foregroundColor(CustomColor.customGreen)
                 }
             }
         }

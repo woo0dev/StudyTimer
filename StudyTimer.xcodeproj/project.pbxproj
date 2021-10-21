@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		314DBBAFC34CF6B67D31B06D /* Pods_StudyTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC76C77B2C8B0821B4AB4ADD /* Pods_StudyTimer.framework */; };
+		E29612A9272147E2007D0BC4 /* model.tflite in Resources */ = {isa = PBXBuildFile; fileRef = E29612A8272147E2007D0BC4 /* model.tflite */; };
 		E2A3484A266F49CB00807BDE /* StudyTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A34849266F49CB00807BDE /* StudyTimerApp.swift */; };
 		E2A3484C266F49CB00807BDE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A3484B266F49CB00807BDE /* ContentView.swift */; };
 		E2A3484E266F49D600807BDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2A3484D266F49D600807BDE /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		858266895FACBE8D541EC95A /* Pods-StudyTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyTimer.release.xcconfig"; path = "Target Support Files/Pods-StudyTimer/Pods-StudyTimer.release.xcconfig"; sourceTree = "<group>"; };
 		9871FA2568B35B9F1E8EF046 /* Pods-StudyTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyTimer.debug.xcconfig"; path = "Target Support Files/Pods-StudyTimer/Pods-StudyTimer.debug.xcconfig"; sourceTree = "<group>"; };
 		CC76C77B2C8B0821B4AB4ADD /* Pods_StudyTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StudyTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E29612A8272147E2007D0BC4 /* model.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = model.tflite; sourceTree = "<group>"; };
 		E2A34846266F49CB00807BDE /* StudyTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A34849266F49CB00807BDE /* StudyTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyTimerApp.swift; sourceTree = "<group>"; };
 		E2A3484B266F49CB00807BDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			children = (
 				E2A34849266F49CB00807BDE /* StudyTimerApp.swift */,
 				E2A3484B266F49CB00807BDE /* ContentView.swift */,
+				E29612A8272147E2007D0BC4 /* model.tflite */,
 				E2ADEEB72720300E006C0248 /* BMJUA_otf.otf */,
 				E2A3484D266F49D600807BDE /* Assets.xcassets */,
 				E2A34852266F49D600807BDE /* Info.plist */,
@@ -172,6 +175,7 @@
 				E2A34851266F49D600807BDE /* Preview Assets.xcassets in Resources */,
 				E2ADEEB82720300E006C0248 /* BMJUA_otf.otf in Resources */,
 				E2A3484E266F49D600807BDE /* Assets.xcassets in Resources */,
+				E29612A9272147E2007D0BC4 /* model.tflite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

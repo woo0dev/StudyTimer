@@ -16,12 +16,12 @@ struct ContentView: View {
             MainView(viewModel: viewModel).tabItem { Image(systemName: "square.and.pencil")
                 Text("메인화면")
             }
-            CameraView().tabItem { Image(systemName: "square.and.pencil")
-                Text("카메라화면")
-            }
-            InfoView().tabItem { Image(systemName: "square.and.pencil")
-                Text("내정보")
-            }
+//            CameraView().tabItem { Image(systemName: "square.and.pencil")
+//                Text("카메라화면")
+//            }
+//            InfoView().tabItem { Image(systemName: "square.and.pencil")
+//                Text("내정보")
+//            }
         }
     }
 }
@@ -279,9 +279,9 @@ struct DetailView: View {
                 NavigationLink(destination: TimerStartView(title: data.title, hours: data.hours, minute: data.minutes, second: 0)) {
                     Text("START").font(Font.custom("BMJUAOTF", size: 40)).bold().foregroundColor(CustomColor.customGreen)
                 }
-                NavigationLink(destination: CameraView()) {
-                    Text("Camera").font(Font.custom("BMJUAOTF", size: 40)).bold().foregroundColor(CustomColor.customGreen)
-                }
+//                NavigationLink(destination: CameraView()) {
+//                    Text("Camera").font(Font.custom("BMJUAOTF", size: 40)).bold().foregroundColor(CustomColor.customGreen)
+//                }
             }
         }
     }

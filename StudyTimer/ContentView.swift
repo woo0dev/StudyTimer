@@ -147,40 +147,6 @@ struct CameraView: View {
     }
 }
 
-struct TimerStartView: View {
-    @State var title: String
-    @State var hours: Int
-    @State var minute: Int
-    @State var second: Int
-    var complet = false
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    var body: some View {
-        Text("\(title)\n\(hours)시간 \(minute)분").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
-        if (dataSelect(title: title).complet == true) {
-            Text("완료한 과목입니다.").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
-        } else {
-            Text("남은 시간: \(hours):\(minute):\(second)").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen).onReceive(timer) { _ in
-                if hours == 0 && minute == 0 && second == 0 {
-                    self.timer.upstream.connect().cancel()
-                    dataUpdate(title: title)
-                } else {
-                    if minute == 0 && second == 0 {
-                        hours -= 1
-                        minute = 59
-                        second = 59
-                    }
-                    if second > 0 {
-                        second -= 1
-                    } else if second == 0 {
-                        minute -= 1
-                        second = 59
-                    }
-                }
-            }
-        }
-    }
-}
-
 struct AddView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var title: String = ""
@@ -245,6 +211,60 @@ struct AddView: View {
             .navigationTitle("")
             .navigationBarHidden(true)
         }
+    }
+}
+
+struct TimerStartView: View {
+    @State var isTimerRunning = false
+    @State var title: String
+    @State var hours: Int
+    @State var minute: Int
+    @State var second: Int
+    @State var complet = false
+    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    var body: some View {
+        VStack {
+            Text("\(title)\n\(hours)시간 \(minute)분").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
+            if (dataSelect(title: title).complet == true) {
+                Text("완료한 과목입니다.").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
+            } else {
+                Text("남은 시간: \(hours):\(minute):\(second)").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen).onReceive(timer) { _ in
+                    if hours == 0 && minute == 0 && second == 0 {
+                        self.timer.upstream.connect().cancel()
+                        completUpdate(title: title)
+                    } else {
+                        if self.isTimerRunning {
+                            if minute == 0 && second == 0 {
+                                hours -= 1
+                                minute = 59
+                                second = 59
+                            }
+                            if second > 0 {
+                                second -= 1
+                            } else if second == 0 {
+                                minute -= 1
+                                second = 59
+                            }
+                        }
+                    }
+                }.onTapGesture {
+                    if isTimerRunning {
+                        self.stopTimer()
+                    } else {
+                        self.startTimer()
+                    }
+                    isTimerRunning.toggle()
+                }
+            }
+        }.onDisappear {
+            timeUpdate(title: title, hours: hours, minutes: minute)
+        }
+    }
+    func stopTimer() {
+        self.timer.upstream.connect().cancel()
+    }
+    func startTimer() {
+        self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
 }
 
@@ -358,11 +378,21 @@ func Result() -> [Todo] {
     return data
 }
 
-func dataUpdate(title: String) {
+func completUpdate(title: String) {
     let realm = try! Realm()
     if let result = realm.objects(Todo.self).filter(NSPredicate(format: "title = %@", title ?? "No Rapper")).first {
         try! realm.write() {
             result.complet = true
+        }
+    }
+}
+
+func timeUpdate(title: String, hours: Int, minutes: Int) {
+    let realm = try! Realm()
+    if let result = realm.objects(Todo.self).filter(NSPredicate(format: "title = %@", title ?? "No Rapper")).first {
+        try! realm.write() {
+            result.hours = hours
+            result.minutes = minutes
         }
     }
 }

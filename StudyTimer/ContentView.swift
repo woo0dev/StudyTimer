@@ -224,11 +224,11 @@ struct TimerStartView: View {
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var body: some View {
         VStack {
-            Text("\(title)\n\(hours)시간 \(minute)분").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
+            Text("\(title)\n\(hours)시간 \(minute)분").font(Font.custom("BMJUAOTF", size: 50)).bold().foregroundColor(CustomColor.customGreen)
             if (dataSelect(title: title).complet == true) {
                 Text("완료한 과목입니다.").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen)
             } else {
-                Text("남은 시간: \(hours):\(minute):\(second)").font(Font.custom("BMJUAOTF", size: 24)).bold().foregroundColor(CustomColor.customGreen).onReceive(timer) { _ in
+                Text("남은 시간: \(hours):\(minute):\(second)").font(Font.custom("BMJUAOTF", size: 30)).bold().foregroundColor(CustomColor.customGreen).onReceive(timer) { _ in
                     if hours == 0 && minute == 0 && second == 0 {
                         self.timer.upstream.connect().cancel()
                         completUpdate(title: title)

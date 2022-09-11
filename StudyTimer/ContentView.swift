@@ -191,8 +191,6 @@ struct AddView: View {
                                 let todo = Todo()
                                 todo.title = title
                                 todo.hours = Int(hours)
-                                todo.minutes = minutes
-                                todo.complet = false
                                 let formatter = DateFormatter()
                                 formatter.dateFormat = "yyyy-MM-dd"
                                 todo.date = formatter.string(from: Date())
